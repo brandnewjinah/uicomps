@@ -1,13 +1,16 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { BrowserRouter as Router } from "react-router-dom";
+
 import "./index.css";
-import Routes from "./Routes";
 import GlobalStyle from "./components/GlobalStyles";
 
+import HomePage from "./pages/Home";
+
 ReactDOM.render(
-  <>
+  <Router>
     <GlobalStyle />
-    <Routes />
-  </>,
+    <HomePage />
+  </Router>,
   document.getElementById("root")
 );
