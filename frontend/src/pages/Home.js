@@ -3,6 +3,7 @@ import { Route, Switch } from "react-router-dom";
 import { Routes } from "../Routes";
 
 //layout components
+import Wrapper from "../components/layout/Wrapper";
 import { Main } from "../components/layout/Container";
 
 //components
@@ -19,13 +20,13 @@ const Layout = ({ component: Component }) => {
   return (
     <Route
       render={(props) => (
-        <>
+        <Wrapper>
           <Sidebar open={open} handleOpen={setOpen} />
           <Main>
             <Navbar handleOpen={setOpen} />
             <Component {...props} />
           </Main>
-        </>
+        </Wrapper>
       )}
     />
   );

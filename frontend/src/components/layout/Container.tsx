@@ -2,82 +2,68 @@ import React, { FC } from "react";
 import styled from "styled-components";
 
 //token
-import { breakpoint, neutral, spacing } from "../token";
+import { breakpoint } from "../token";
 
 export interface Props {
   padding?: string;
   open?: boolean;
+  className?: string;
+  color?: string;
 }
 
 type StyleProps = {
   padding?: string | undefined;
+  color?: string | undefined;
   open?: boolean;
 };
 
 export const Main: FC<Props> = ({ children, padding }) => {
-  return <MainContainer padding={padding}>{children}</MainContainer>;
+  return <MainBox padding={padding}>{children}</MainBox>;
 };
 
-const MainContainer = styled.main<StyleProps>`
+export const Container: FC<Props> = ({ children, padding, color }) => {
+  return (
+    <ContainerBox padding={padding} color={color}>
+      {children}
+    </ContainerBox>
+  );
+};
+
+export const Article: FC<Props> = ({ children, padding }) => {
+  return <ArticleBox padding={padding}>{children}</ArticleBox>;
+};
+
+export const Div: FC<Props> = ({ children, className, color, padding }) => {
+  return (
+    <DivBox padding={padding} color={color} className={className}>
+      {children}
+    </DivBox>
+  );
+};
+
+const MainBox = styled.main<StyleProps>`
+  width: 100%;
+  height: 100%;
+
+  @media ${breakpoint.minlg} {
+    padding-left: 260px;
+  }
+`;
+
+const ContainerBox = styled.div<StyleProps>`
+  width: 100%;
+  height: 100%;
+  background-color: ${(props) => (props.color ? props.color : "none")};
+  padding: ${(props) => props.padding};
+`;
+
+const ArticleBox = styled.article<StyleProps>`
   width: 100%;
   padding: ${(props) => props.padding};
-
-  @media ${breakpoint.minlg} {
-    margin-left: 260px;
-  }
 `;
 
-export const Side: FC<Props> = ({ children, padding, open }) => {
-  return <SideContainer open={open}>{children}</SideContainer>;
-};
-
-const SideContainer = styled.div<StyleProps>`
-  background-color: ${neutral[100]};
-  /* display: block; */
-  display: ${(props) => (props.open ? "block" : "none")};
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 100;
+const DivBox = styled.div<StyleProps>`
   width: 100%;
-  max-height: 100%;
-  overflow-y: auto;
-
-  .nav {
-    display: flex;
-    flex-direction: column;
-    padding: ${spacing.xl};
-  }
-
-  @media ${breakpoint.minlg} {
-    display: block;
-    max-width: 260px;
-
-    button {
-      display: none;
-    }
-  }
-`;
-
-export const NavItem: FC<Props> = ({ children, padding }) => {
-  return <NavItemContainer padding={padding}>{children}</NavItemContainer>;
-};
-
-const NavItemContainer = styled.div<StyleProps>`
-  width: 100%;
-  padding: ${spacing.m} 0;
-`;
-
-export const Nav: FC<Props> = ({ children, padding }) => {
-  return <NavContainer padding={padding}>{children}</NavContainer>;
-};
-
-const NavContainer = styled.nav<StyleProps>`
-  width: 100%;
-  padding: ${spacing.m} 0;
-
-  @media ${breakpoint.minlg} {
-    display: none;
-  }
+  background-color: ${(props) => (props.color ? props.color : "none")};
+  padding: ${(props) => props.padding};
 `;

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Routes } from "../Routes";
 
 //layout components
-import { Side, NavItem } from "../components/layout/Container";
+import { Side, NavItem } from "../components/layout/Nav";
 
 const Sidebar = ({ open, handleOpen }) => {
   const handleMenuBtnClick = () => {
