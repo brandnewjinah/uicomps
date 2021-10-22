@@ -1,5 +1,4 @@
-//req db
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 //connect to db
 const dbOptions = {
@@ -10,4 +9,4 @@ const dbOptions = {
 mongoose
   .connect(process.env.MONGODB_ADDRESS, dbOptions)
   .then(() => console.log("db connected"))
-  .catch((err) => console.log(err.message));
+  .catch((error) => console.log(error.message));

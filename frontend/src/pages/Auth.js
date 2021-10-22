@@ -18,6 +18,9 @@ import { Checkbox } from "../components/Checkbox";
 import { blue, neutral, spacing } from "../components/token";
 import { Google } from "../assets/Icons";
 
+//redux
+import { signin, signup } from "../reducers/authReducer";
+
 const Signup = () => {
   const [isSignup, setIsSignup] = useState(false);
   const history = useHistory();
@@ -45,9 +48,11 @@ const Signup = () => {
   };
 
   const handleSubmit = (values) => {
-    console.log(values);
-
-    // postData();
+    if (isSignup) {
+      dispatch(signup(values, history));
+    } else {
+      dispatch(signin(values, history));
+    }
   };
 
   const validate = Yup.object({
@@ -57,9 +62,11 @@ const Signup = () => {
     password: Yup.string()
       .min(6, "Password must be at least 6 characters")
       .required("Password is required"),
-    confirmPassword: Yup.string()
-      .oneOf([Yup.ref("password"), null], "Password must match")
-      .required("Confirm password is required"),
+    ...(isSignup && {
+      confirmPassword: Yup.string()
+        .oneOf([Yup.ref("password"), null], "Password must match")
+        .required("Confirm password is required"),
+    }),
   });
 
   return (
@@ -76,8 +83,8 @@ const Signup = () => {
             initialValues={{
               email: "",
               password: "",
-              confirmPassword: "",
-              acceptTerms: false,
+              ...(isSignup && { confirmPassword: "" }),
+              ...(isSignup && { acceptTerms: false }),
             }}
             validationSchema={validate}
             onSubmit={(values) => handleSubmit(values)}

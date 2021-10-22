@@ -12,7 +12,7 @@ import Navbar from "../components/Navbar";
 
 // pages
 import Overview from "./Overview";
-import Signup from "./Signup";
+import Auth from "./Auth";
 
 const Layout = ({ component: Component }) => {
   const [open, setOpen] = useState(false);
@@ -35,7 +35,7 @@ const Layout = ({ component: Component }) => {
 const Home = () => (
   <Switch>
     <Layout exact path={Routes.Overview.path} component={Overview} />
-    <Layout exact path={Routes.Signup.path} component={Signup} />
+    <Layout exact path={Routes.Signup.path} component={Auth} />
   </Switch>
 );
 

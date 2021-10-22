@@ -44,7 +44,7 @@ const Sidebar = ({ open, handleOpen }) => {
           <Nav title="Sign In" link={Routes.Signup.path} />
         )}
         <Nav title="Home" link={Routes.Overview.path} />
-        <Nav title="Signup" link={Routes.Signup.path} />
+        <Nav title="Auth" link={Routes.Signup.path} />
       </div>
     </Side>
   );
