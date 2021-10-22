@@ -1,8 +1,9 @@
 import React, { ChangeEvent, FC, useState } from "react";
 import { useField, ErrorMessage } from "formik";
-
-//import styles and assets
 import styled, { css } from "styled-components";
+
+//layout component
+import { Article } from "./layout/Container";
 import { Eye, EyeOff } from "../assets/Icons";
 import { neutral, spacing, typeScale } from "./token";
 
@@ -32,22 +33,24 @@ export const Input: FC<Props> = ({ label, ...props }) => {
 
   return (
     <Wrapper>
-      {label && (
-        <label htmlFor={field.name} aria-hidden="true">
-          {label}
-        </label>
-      )}
+      <Article padding={`${spacing.m} 0`}>
+        {label && (
+          <label htmlFor={field.name} aria-hidden="true">
+            {label}
+          </label>
+        )}
 
-      <Container>
-        <InputTag
-          className={`${meta.touched && meta.error && "error"}`}
-          {...field}
-          {...props}
-          name={field.name}
-          aria-label={field.name}
-        />
-      </Container>
-      <ErrorMessage name={field.name} component="div" className="errorTxt" />
+        <Container>
+          <InputTag
+            className={`${meta.touched && meta.error && "error"}`}
+            {...field}
+            {...props}
+            name={field.name}
+            aria-label={field.name}
+          />
+        </Container>
+        <ErrorMessage name={field.name} component="div" className="errorTxt" />
+      </Article>
     </Wrapper>
   );
 };

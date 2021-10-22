@@ -1,94 +1,62 @@
 import React, { FC } from "react";
 import styled from "styled-components";
 
-//import token
-import { neutral, spacing } from "./token";
+//layout components
+import { Article, Div } from "./layout/Container";
+import { spacing } from "./token";
 
 export interface Props {
-  primaryColor?: string;
-  secondaryColor?: string;
-  disabled?: boolean;
-  error?: boolean;
-  fullwidth?: boolean;
-  icon?: boolean;
+  color?: string;
+  fontColor?: string;
+  icon?: React.ComponentType;
   label?: string;
-  shape?: "pill" | "rounded" | "sharp";
-  size?: "small";
-  spacing?: string;
-  textColor?: string;
-  thin?: boolean;
   type?: "button" | "submit" | "reset" | undefined;
+  shape?: "text" | "outline" | undefined;
   handleClick?: () => void;
 }
 
-export const FilledButton: FC<Props> = ({
-  children,
-  primaryColor,
-  secondaryColor,
-  disabled,
-  error,
-  fullwidth,
+const Button: FC<Props> = ({
+  color,
+  fontColor,
   icon,
   label,
-  size,
   shape,
-  spacing,
   type,
   handleClick,
 }) => {
   return (
-    <FilledContainer
-      aria-label={label}
-      role="button"
-      primaryColor={primaryColor}
-      secondaryColor={secondaryColor}
-      size={size}
-      shape={shape}
-      disabled={disabled}
-      fullwidth={fullwidth}
-      spacing={spacing}
-      type={type}
-      onClick={handleClick}
-    >
-      <Flex>
-        {icon && children}
-        <p className="spacing">{label}</p>
-      </Flex>
-    </FilledContainer>
+    <Article padding={`${spacing.xxl} 0`} className="flexCenter">
+      <ButtonContainer
+        color={color}
+        fontColor={fontColor}
+        type={type}
+        shape={shape}
+        onClick={handleClick}
+      >
+        <div className="flexCenter">
+          {icon && <Div padding={`0 ${spacing.xs} 0 0`}>{icon}</Div>}
+          {label}
+        </div>
+      </ButtonContainer>
+    </Article>
   );
 };
 
-const Button = styled.button<Props>`
+const ButtonContainer = styled.button<Props>`
+  width: ${(props) => (props.shape === "text" ? null : "100%")};
   font-weight: 600;
-  width: ${(props) => (props.fullwidth ? "100%" : null)};
-  border-radius: ${(props) =>
-    props.shape === "pill"
-      ? "2em"
-      : props.shape === "rounded"
-      ? spacing.xxxs
-      : 0};
-
-  padding: ${(props) => (props.size === "small" ? ".25em .5em" : spacing.s)};
+  color: ${(props) => (props.fontColor ? props.fontColor : "#fff")};
+  background-color: ${(props) =>
+    props.shape === "text" || props.shape === "outline"
+      ? "transparent"
+      : props.color};
+  border-style: solid;
+  border-color: ${(props) => props.shape === "outline" && props.color};
+  border-width: ${(props) => (props.shape === "outline" ? "1px" : 0)};
+  border-radius: ${spacing.xxxs};
+  padding: ${spacing.s};
   transition: opacity 0.3s ease-out;
   cursor: pointer;
-
-  &:disabled {
-    opacity: 1;
-    cursor: not-allowed;
-  }
-`;
-
-const FilledContainer = styled(Button)<Props>`
-  font-size: ${(props) => (props.size === "small" ? ".875rem" : "1rem")};
-  background-color: ${(props) =>
-    props.secondaryColor ? props.secondaryColor : props.primaryColor};
-  border: none;
-  color: ${(props) => (props.secondaryColor ? props.primaryColor : `#fff`)};
-  cursor: pointer;
-
-  .spacing {
-    padding: ${(props) => `${props.spacing} 0`};
-  }
 
   &:hover {
     opacity: 0.8;
@@ -97,18 +65,6 @@ const FilledContainer = styled(Button)<Props>`
   &:active {
     opacity: 1;
   }
-
-  &:disabled {
-    background-color: ${neutral[300]};
-  }
 `;
 
-const Flex = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  svg {
-    margin-right: 0.5em;
-  }
-`;
+export default Button;

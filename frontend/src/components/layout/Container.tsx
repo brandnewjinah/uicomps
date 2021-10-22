@@ -29,8 +29,12 @@ export const Container: FC<Props> = ({ children, padding, color }) => {
   );
 };
 
-export const Article: FC<Props> = ({ children, padding }) => {
-  return <ArticleBox padding={padding}>{children}</ArticleBox>;
+export const Article: FC<Props> = ({ className, children, padding }) => {
+  return (
+    <ArticleBox padding={padding} className={className}>
+      {children}
+    </ArticleBox>
+  );
 };
 
 export const Div: FC<Props> = ({ children, className, color, padding }) => {
@@ -63,7 +67,6 @@ const ArticleBox = styled.article<StyleProps>`
 `;
 
 const DivBox = styled.div<StyleProps>`
-  width: 100%;
   background-color: ${(props) => (props.color ? props.color : "none")};
   padding: ${(props) => props.padding};
 `;
