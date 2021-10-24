@@ -21,11 +21,24 @@ export const Main: FC<Props> = ({ children, padding }) => {
   return <MainBox padding={padding}>{children}</MainBox>;
 };
 
-export const Container: FC<Props> = ({ children, padding, color }) => {
+export const Container: FC<Props> = ({
+  className,
+  children,
+  padding,
+  color,
+}) => {
   return (
-    <ContainerBox padding={padding} color={color}>
+    <ContainerBox padding={padding} color={color} className={className}>
       {children}
     </ContainerBox>
+  );
+};
+
+export const Section: FC<Props> = ({ className, children, padding }) => {
+  return (
+    <SectionBox padding={padding} className={className}>
+      {children}
+    </SectionBox>
   );
 };
 
@@ -58,6 +71,11 @@ const ContainerBox = styled.div<StyleProps>`
   width: 100%;
   height: 100%;
   background-color: ${(props) => (props.color ? props.color : "none")};
+  padding: ${(props) => props.padding};
+`;
+
+const SectionBox = styled.section<StyleProps>`
+  width: 100%;
   padding: ${(props) => props.padding};
 `;
 

@@ -45,6 +45,7 @@ const Sidebar = ({ open, handleOpen }) => {
         )}
         <Nav title="Home" link={Routes.Overview.path} />
         <Nav title="Auth" link={Routes.Signup.path} />
+        <Nav title="Payment" link={Routes.Payment.path} />
       </div>
     </Side>
   );

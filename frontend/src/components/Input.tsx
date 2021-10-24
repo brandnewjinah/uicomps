@@ -9,6 +9,7 @@ import { neutral, spacing, typeScale } from "./token";
 
 export interface Props {
   label?: string;
+  half?: boolean;
   name: string;
   value?: string;
   error?: string;
@@ -27,31 +28,29 @@ type StyleProps = {
   align?: string | undefined;
 };
 
-export const Input: FC<Props> = ({ label, ...props }) => {
+export const Input: FC<Props> = ({ label, half, ...props }) => {
   const [field, meta] = useField(props);
   const [isPassword, setIsPassword] = useState(true);
 
   return (
-    <Wrapper>
-      <Article padding={`${spacing.m} 0`}>
-        {label && (
-          <label htmlFor={field.name} aria-hidden="true">
-            {label}
-          </label>
-        )}
+    <Article padding={`${spacing.m} 0`} className={half ? "fourhalf" : ""}>
+      {label && (
+        <label htmlFor={field.name} aria-hidden="true">
+          {label}
+        </label>
+      )}
 
-        <Container>
-          <InputTag
-            className={`${meta.touched && meta.error && "error"}`}
-            {...field}
-            {...props}
-            name={field.name}
-            aria-label={field.name}
-          />
-        </Container>
-        <ErrorMessage name={field.name} component="div" className="errorTxt" />
-      </Article>
-    </Wrapper>
+      <Container>
+        <InputTag
+          className={`${meta.touched && meta.error && "error"}`}
+          {...field}
+          {...props}
+          name={field.name}
+          aria-label={field.name}
+        />
+      </Container>
+      <ErrorMessage name={field.name} component="div" className="errorTxt" />
+    </Article>
   );
 };
 

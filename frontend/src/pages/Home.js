@@ -13,6 +13,7 @@ import Navbar from "../components/Navbar";
 // pages
 import Overview from "./Overview";
 import Auth from "./Auth";
+import Payment from "./Payment";
 
 const Layout = ({ component: Component }) => {
   const [open, setOpen] = useState(false);
@@ -36,6 +37,7 @@ const Home = () => (
   <Switch>
     <Layout exact path={Routes.Overview.path} component={Overview} />
     <Layout exact path={Routes.Signup.path} component={Auth} />
+    <Layout exact path={Routes.Payment.path} component={Payment} />
   </Switch>
 );
 

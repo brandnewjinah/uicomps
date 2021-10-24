@@ -26,6 +26,20 @@ const Signup = () => {
   const history = useHistory();
   const dispatch = useDispatch();
 
+  // const [userval, setUserval] = useState({
+  //   email: "",
+  //   password: "",
+  //   ...(isSignup && { confirmPassword: "" }),
+  //   ...(isSignup && { acceptTerms: false }),
+  // });
+
+  const [userval, setUserval] = useState({
+    email: "",
+    password: "",
+    confirmPassword: "",
+    acceptTerms: false,
+  });
+
   const handleSwitch = () => {
     setIsSignup((prev) => !prev);
   };
@@ -80,17 +94,13 @@ const Signup = () => {
             <h2>{isSignup ? "Create an account" : "Sign In"}</h2>
           </Div>
           <Formik
-            initialValues={{
-              email: "",
-              password: "",
-              ...(isSignup && { confirmPassword: "" }),
-              ...(isSignup && { acceptTerms: false }),
-            }}
+            initialValues={userval}
             validationSchema={validate}
             onSubmit={(values) => handleSubmit(values)}
           >
             {(formik) => (
               <Form>
+                {console.log(formik.values)}
                 <Input label="Email" name="email" type="email" />
                 <Input label="Password" name="password" type="password" />
                 {isSignup && (
